@@ -16,7 +16,7 @@ Name_Sender = "Vaishnav Agarwal"
 def generate_message(name, interest, region):
     prompt = (
         f"Write a short, personalized outreach message to {name}, who is interested in {interest} and lives in {region}. "
-        f"Tell them you're Vaishnav Agarwal and invite them to connect on LinkedIn here: {LinkdIn}. "
+        f"Tell them you're Vaishnav Agarwal and invite them to connect on LinkedIn here: https://www.linkedin.com/in/vaishnav-agarwal-9498542b0/. "
         "Keep it under 40 words and make it sound friendly and real. Don't fake any info. "
         "Mention exploring collaboration in the future."
     )
@@ -32,7 +32,13 @@ def generate_message(name, interest, region):
     }
 
     response = requests.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, json=data)
-    return response.json()["choices"][0]["message"]["content"]
+    result = response.json()
+
+    if "choices" in result:
+        return result["choices"][0]["message"]["content"]
+    else:
+        return f"⚠️ Error from OpenRouter: {result.get('error', 'Unknown error')}"
+
 
 def send_email(to_email, message):
     msg = MIMEText(message)
