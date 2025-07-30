@@ -50,7 +50,6 @@ def send_email(to_email, message):
             server.sendmail(EMAIL_ADDRESS, to_email, msg.as_string())
     except smtplib.SMTPResponseException as e:
         st.error(f"❌ Email send failed: {e.smtp_code} - {e.smtp_error.decode()}")
-d
 st.title("AI Outreach Assistant")
 
 name = st.text_input("Name")
