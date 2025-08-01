@@ -49,7 +49,7 @@ def send_email(to_email, message):
             server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
             server.sendmail(EMAIL_ADDRESS, to_email, msg.as_string())
     except smtplib.SMTPResponseException as e:
-        st.error(f"❌ Email send failed: {e.smtp_code} - {e.smtp_error.decode()}")
+        st.error(f" Email send failed: {e.smtp_code} - {e.smtp_error.decode()}")
 st.title("AI Outreach Assistant")
 
 name = st.text_input("Name")
@@ -63,6 +63,6 @@ if st.button("Generate & Send Email"):
             message = generate_message(name, interest, region)
             st.text_area("Generated Message", message, height=100)
             send_email(email, message)
-            st.success(f"✅ Email sent to {email}")
+            st.success(f" Email sent to {email}")
     else:
         st.warning(" Please fill in all fields.")
